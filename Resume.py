@@ -2,6 +2,7 @@ import spacy
 import fitz
 import re
 import docx
+import json
 
 nlp = spacy.load('en_core_web_sm')
 
@@ -24,14 +25,14 @@ class ResumeParser:
                 doc = docx.Document(self.file)
                 text = '\n'.join([para.text for para in doc.paragraphs])
 
-            # Cleaning  up the text
+            # Cleaning up the text
             text = ' '.join(text.split())
 
-            # Using  Spacy to parse the text and extract relevant information
+            # Using Spacy to parse the text and extract relevant information
             doc = nlp(text)
             data = {}
 
-            # Extracting the  name of the individual 
+            # Extracting the name of the individual
             name = ''
             for ent in doc.ents:
                 if ent.label_ == 'PERSON':
@@ -47,7 +48,7 @@ class ResumeParser:
                 age = match.group(0)
             data['age'] = age if age else None
 
-            # Extracting  contact information
+            # Extracting contact information
             contact = {}
             email_re = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
             phone_re = re.compile(r'\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b')
@@ -67,10 +68,21 @@ class ResumeParser:
                         contact['address'] = match.group(0)
             data['contact'] = contact if contact else None
 
+            # Extracting skills from the resume
+            with open('skills.json') as f:
+                skills = json.load(f)
+
+            resume_skills = []
+            for skill in skills:
+                if skill.lower() in text.lower():
+                    resume_skills.append(skill)
+
+            data['skills'] = resume_skills if resume_skills else None
+
             return data
 
         else:
             # If the uploaded file is not a PDF or Word file, return an error response
-            error = {'error': 'The uploaded file is not a PDF or Word file try again .'}
+            error = {'error': 'The uploaded file is not a PDF or Word file. Please try again.'}
 
             return error
