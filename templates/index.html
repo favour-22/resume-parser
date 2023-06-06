@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <meta charset="UTF-8">
     <title>Resume Parser</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Resume Parser</h1>
-    <form action="/" method="post" enctype="multipart/form-data">
-        <input type="file" name="resume" accept=".docx,.pdf">
-        <input type="submit" value="Upload Resume">
+    <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+      <label for="resume">Upload your resume:</label>
+      <input type="file" id="resume" name="resume" accept=".pdf,.docx">
+      <button type="submit">Submit</button>
     </form>
-</body>
+  </body>
 </html>
-
