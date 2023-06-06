@@ -1,0 +1,67 @@
+/* Set default font and background color */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+/* Center the form in the middle of the page */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Style the form input fields and labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+input[type="file"] {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Style the submit button */
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+/* Make the form mobile-responsive */
+@media only screen and (max-width: 600px) {
+  form {
+    max-width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  input[type="file"] {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  button[type="submit"] {
+    font-size: 18px;
+    padding: 12px 24px;
+  }
+
+  label {
+    font-size: 20px;
+  }
+}
