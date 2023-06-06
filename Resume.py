@@ -71,5 +71,6 @@ class ResumeParser:
 
         else:
             # If the uploaded file is not a PDF or Word file, return an error response
-            error = {'error': 'The uploaded file is not a PDF or Word file.'}
+            error = {'error': 'The uploaded file is not a PDF or Word file try again .'}
+
             return error
