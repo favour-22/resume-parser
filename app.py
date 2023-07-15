@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, jsonify
-from Resume import ResumeParser
+from flask import Flask, request, jsonify, render_template
+from paser import ResumeParser
+import json
 
 app = Flask(__name__)
 
@@ -7,19 +8,17 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/upload', methods=['POST'])
+
+@app.route('/upload',methods=['POST','GET'])
 def upload():
-    # Get the uploaded file from the request
-    file = request.files['resume']
+    if request.method == 'POST':
+        file = request.files.get('file')
 
-    # Create a ResumeParser object and parse the resume
-    parser = ResumeParser(file)
-    data = parser.parse_resume()
+        parser = ResumeParser(file)
+        data = parser.parse_resume()
 
-    # Convert the extracted information into a JSON response
-    response = jsonify(data)
-    response.status_code = 200
-    return response
-
+    
+        return jsonify(data)
+       
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=5000,host="0.0.0.0")
